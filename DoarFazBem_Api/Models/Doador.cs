@@ -3,10 +3,10 @@ namespace DoarFazBem.Models;
 public class Doador
 {
     public int id_doador { get; set; }
-    public int TipoSanguineo { get; set; }
-    public int NomeCidade { get; set; }
-    public int NomeEstado { get; set; }
-    public int Peso { get; set; }
-    public int Altura { get; set; }
+    public string? TipoSanguineo { get; set; }
+    public string? NomeCidade { get; set; }
+    public string? NomeEstado { get; set; }
+    public decimal Peso { get; set; }
+    public decimal Altura { get; set; }
 
 }
