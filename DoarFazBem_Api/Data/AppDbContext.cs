@@ -1,4 +1,4 @@
-﻿using DoarFazBem_Api.Models;
+﻿using DoarFazBem.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DoarFazBem_Api.Context
@@ -9,6 +9,6 @@ namespace DoarFazBem_Api.Context
         {
         }
 
-        public DbSet<Cnae> Cnaes { get; set; }
+        public DbSet<Cadastro> Cadastros { get; set; }
     }
 }
