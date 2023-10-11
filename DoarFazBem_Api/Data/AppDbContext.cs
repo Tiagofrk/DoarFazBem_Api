@@ -10,5 +10,7 @@ namespace DoarFazBem_Api.Context
         }
 
         public DbSet<Cadastro> Cadastros { get; set; }
+
+        public DbSet<DoarFazBem.Models.Usuario>? Usuario { get; set; }
     }
 }
