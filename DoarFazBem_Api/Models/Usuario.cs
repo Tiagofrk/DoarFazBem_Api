@@ -2,12 +2,12 @@ namespace DoarFazBem.Models;
 
 public class Usuario
 {
-    public int Id { get; set; }
-    public string? CPF { get; set; }
-    public string? Nome { get; set; }
-    public string? Sexo { get; set; }
-    public DateTime Nascimento { get; set; }
-    public decimal Peso { get; set; }
-    public decimal Altura { get; set; }
-    public string? Nascionalidade { get; set; }
+    public int id { get; set; }
+    public string? cpf { get; set; }
+    public string? nome { get; set; }
+    public string? sexo { get; set; }
+    public DateTime nascimento { get; set; }
+    public decimal peso { get; set; }
+    public decimal altura { get; set; }
+    public string? nascionalidade { get; set; }
 }
