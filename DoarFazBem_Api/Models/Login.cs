@@ -1,4 +1,4 @@
-﻿namespace DoarFazBem_Api.Models
+﻿namespace DoarFazBem.Models
 {
     public class Login
     {
