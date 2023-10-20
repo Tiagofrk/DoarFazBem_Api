@@ -39,6 +39,7 @@ public class UsuarioController : ControllerBase
 
     // POST: api/Usuario
     [HttpPost]
+    [Route("PostUsuario")]
     public ActionResult<Usuario> PostUsuario(Usuario usuario)
     {
         _context.Usuario.Add(usuario);
