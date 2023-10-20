@@ -18,6 +18,7 @@ public class HemocentroController : ControllerBase
 
     // GET: api/Hemocentro
     [HttpGet]
+    [Route("GetHemocentros")]
     public ActionResult<IEnumerable<Hemocentro>> GetHemocentros()
     {
         return _context.Hemocentro.ToList();
@@ -25,6 +26,7 @@ public class HemocentroController : ControllerBase
 
     // GET: api/Hemocentro/5
     [HttpGet("{id}")]
+    [Route("GetHemocentro")]
     public ActionResult<Hemocentro> GetHemocentro(int id)
     {
         var Hemocentro = _context.Hemocentro.Find(id);
@@ -39,6 +41,7 @@ public class HemocentroController : ControllerBase
 
     // POST: api/Hemocentro
     [HttpPost]
+    [Route("PostHemocentro")]
     public ActionResult<Hemocentro> PostHemocentro(Hemocentro Hemocentro)
     {
         _context.Hemocentro.Add(Hemocentro);
@@ -49,6 +52,7 @@ public class HemocentroController : ControllerBase
 
     // PUT: api/Hemocentro/5
     [HttpPut("{id}")]
+    [Route("PutHemocentro")]
     public IActionResult PutHemocentro(int id, Hemocentro Hemocentro)
     {
         if (id != Hemocentro.id_hemocentro)
@@ -64,6 +68,7 @@ public class HemocentroController : ControllerBase
 
     // DELETE: api/Hemocentro/5
     [HttpDelete("{id}")]
+    [Route("DeleteHemocentro")]
     public IActionResult DeleteHemocentro(int id)
     {
         var Hemocentro = _context.Hemocentro.Find(id);

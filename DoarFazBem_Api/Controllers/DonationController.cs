@@ -18,6 +18,7 @@ public class DonationController : ControllerBase
 
     // GET: api/Donation
     [HttpGet]
+    [Route("GetDonations")]
     public ActionResult<IEnumerable<Donation>> GetDonations()
     {
         return _context.Donation.ToList();
@@ -25,6 +26,7 @@ public class DonationController : ControllerBase
 
     // GET: api/Donation/5
     [HttpGet("{id}")]
+    [Route("GetDonation")]
     public ActionResult<Donation> GetDonation(int id)
     {
         var Donation = _context.Donation.Find(id);
@@ -39,6 +41,7 @@ public class DonationController : ControllerBase
 
     // POST: api/Donation
     [HttpPost]
+    [Route("PostDonation")]
     public ActionResult<Donation> PostDonation(Donation Donation)
     {
         _context.Donation.Add(Donation);
@@ -49,6 +52,7 @@ public class DonationController : ControllerBase
 
     // PUT: api/Donation/5
     [HttpPut("{id}")]
+    [Route("PutDonation")]
     public IActionResult PutDonation(int id, Donation Donation)
     {
         if (id != Donation.id_donation)
@@ -64,6 +68,7 @@ public class DonationController : ControllerBase
 
     // DELETE: api/Donation/5
     [HttpDelete("{id}")]
+    [Route("DeleteDonation")]
     public IActionResult DeleteDonation(int id)
     {
         var Donation = _context.Donation.Find(id);

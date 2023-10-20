@@ -18,6 +18,7 @@ public class UsuarioController : ControllerBase
 
     // GET: api/Usuario
     [HttpGet]
+    [Route("GetUsuarios")]
     public ActionResult<IEnumerable<Usuario>> GetUsuarios()
     {
         return _context.Usuario.ToList();
@@ -25,6 +26,7 @@ public class UsuarioController : ControllerBase
 
     // GET: api/Usuario/5
     [HttpGet("{id}")]
+    [Route("GetUsuario")]
     public ActionResult<Usuario> GetUsuario(int id)
     {
         var usuario = _context.Usuario.Find(id);
@@ -50,6 +52,7 @@ public class UsuarioController : ControllerBase
 
     // PUT: api/Usuario/5
     [HttpPut("{id}")]
+    [Route("PutUsuario")]
     public IActionResult PutUsuario(int id, Usuario usuario)
     {
         if (id != usuario.cpf)
@@ -65,6 +68,7 @@ public class UsuarioController : ControllerBase
 
     // DELETE: api/Usuario/5
     [HttpDelete("{id}")]
+    [Route("DeleteUsuario")]
     public IActionResult DeleteUsuario(int id)
     {
         var usuario = _context.Usuario.Find(id);
