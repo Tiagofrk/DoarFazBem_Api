@@ -11,4 +11,7 @@ public class Usuario
     public string? email { get; set; }
     public TipoSanguineo tipo_sanguineo { get; set; }
     public string? cep { get; set; }
+    public string senha { get; set; }
+    public byte[] senhaHash { get; set; } 
+    public byte[] senhaSalt { get; set; }
 }

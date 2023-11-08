@@ -44,6 +44,11 @@ public class UsuarioController : ControllerBase
     [Route("PostUsuario")]
     public ActionResult<Usuario> PostUsuario(Usuario usuario)
     {
+
+        CriarSenhaHash(usuario.senha, out byte[] senhaHash, out byte[] senhaSalt);
+        usuario.senhaHash = senhaHash;
+        usuario.senhaSalt = senhaSalt;
+
         _context.Usuario.Add(usuario);
         _context.SaveChanges();
 
@@ -82,5 +87,17 @@ public class UsuarioController : ControllerBase
         _context.SaveChanges();
 
         return NoContent();
+    }
+
+    private void CriarSenhaHash(string senha, out byte[] senhaHash, out byte[] senhaSalt)
+    {
+        if (senha == null) throw new ArgumentNullException("senha");
+        if (string.IsNullOrWhiteSpace(senha)) throw new ArgumentException("A senha não pode ser vazia ou conter apenas espaços em branco.", "senha");
+
+        using (var hmac = new System.Security.Cryptography.HMACSHA512())
+        {
+            senhaSalt = hmac.Key;
+            senhaHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(senha));
+        }
     }
 }
