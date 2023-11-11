@@ -89,7 +89,7 @@ public class UsuarioController : ControllerBase
         return NoContent();
     }
 
-    private void CriarSenhaHash(string senha, out byte[] senhaHash, out byte[] senhaSalt)
+    private void CriarSenhaHash(string? senha, out byte[] senhaHash, out byte[] senhaSalt)
     {
         if (senha == null) throw new ArgumentNullException("senha");
         if (string.IsNullOrWhiteSpace(senha)) throw new ArgumentException("A senha não pode ser vazia ou conter apenas espaços em branco.", "senha");
