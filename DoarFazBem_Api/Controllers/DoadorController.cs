@@ -17,16 +17,14 @@ public class DoadorController : ControllerBase
     }
 
     // GET: api/Doador
-    [HttpGet]
-    [Route("GetDoadors")]
+    [Route("GetDoadors"), HttpGet]
     public ActionResult<IEnumerable<Doador>> GetDoadors()
     {
         return _context.Doador.ToList();
     }
 
     // GET: api/Doador/5
-    [HttpGet("{id}")]
-    [Route("GetDoador")]
+    [Route("GetDoador"), HttpGet]
     public ActionResult<Doador> GetDoador(int id)
     {
         var Doador = _context.Doador.Find(id);
@@ -40,8 +38,7 @@ public class DoadorController : ControllerBase
     }
 
     // POST: api/Doador
-    [HttpPost]
-    [Route("PostDoador")]
+    [Route("PostDoador"), HttpPost]
     public ActionResult<Doador> PostDoador(Doador Doador)
     {
         _context.Doador.Add(Doador);
@@ -51,8 +48,8 @@ public class DoadorController : ControllerBase
     }
 
     // PUT: api/Doador/5
-    [HttpPut("{id}")]
-    [Route("PutDoador")]
+    [Route("PutDoador"), HttpPut]
+
     public IActionResult PutDoador(int id, Doador Doador)
     {
         if (id != Doador.id_doador)
@@ -67,8 +64,8 @@ public class DoadorController : ControllerBase
     }
 
     // DELETE: api/Doador/5
-    [HttpDelete("{id}")]
-    [Route("DeleteDoador")]
+    [Route("DeleteDoador"), HttpDelete]
+
     public IActionResult DeleteDoador(int id)
     {
         var Doador = _context.Doador.Find(id);
