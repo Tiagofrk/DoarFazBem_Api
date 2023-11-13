@@ -32,7 +32,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowMyOrigin",
-            builder => builder.WithOrigins("http://127.0.0.1:5500").AllowAnyHeader().AllowAnyMethod());
+            builder => builder.WithOrigins("http://127.0.0.1:5500/").AllowAnyHeader().AllowAnyMethod());
 });
 
 var app = builder.Build();
