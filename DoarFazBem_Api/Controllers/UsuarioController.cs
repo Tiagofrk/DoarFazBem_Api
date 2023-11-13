@@ -41,15 +41,23 @@ public class UsuarioController : ControllerBase
     [Route("PostUsuario"), HttpPost]
     public ActionResult<Usuario> PostUsuario(Usuario usuario)
     {
+        try
+        {
+            CriarSenhaHash(usuario.senha, out byte[] senhaHash, out byte[] senhaSalt);
+            usuario.senhaHash = senhaHash;
+            usuario.senhaSalt = senhaSalt;
 
-        CriarSenhaHash(usuario.senha, out byte[] senhaHash, out byte[] senhaSalt);
-        usuario.senhaHash = senhaHash;
-        usuario.senhaSalt = senhaSalt;
+            _context.Usuario.Add(usuario);
+            _context.SaveChanges();
 
-        _context.Usuario.Add(usuario);
-        _context.SaveChanges();
-
-        return CreatedAtAction(nameof(GetUsuario), new { id = usuario.cpf }, usuario);
+            return CreatedAtAction(nameof(GetUsuario), new { id = usuario.cpf }, usuario);
+        }
+        catch (Exception ex)
+        {
+            // Adicione logs ou retorne mensagens de erro para debug
+            Console.WriteLine($"Erro: {ex.Message}");
+            return BadRequest($"Erro: {ex.Message}");
+        }
     }
 
     // PUT: api/Usuario/5
