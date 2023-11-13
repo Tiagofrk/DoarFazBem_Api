@@ -39,7 +39,7 @@ public class UsuarioController : ControllerBase
 
     // POST: api/Usuario
     [Route("PostUsuario"), HttpPost]
-    public ActionResult<Usuario> PostUsuario(Usuario usuario)
+    public ActionResult<Usuario> PostUsuario([FromBody] Usuario usuario)
     {
         try
         {
