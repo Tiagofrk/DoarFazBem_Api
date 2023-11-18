@@ -6,6 +6,6 @@ namespace DoarFazBem.Models
     {
         [Key]
         public int cpf { get; set; }
-        public string? password { get; set; }
+        public string? password_dfb { get; set; }
     }
 }

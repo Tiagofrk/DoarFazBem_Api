@@ -17,5 +17,7 @@ namespace DoarFazBem_Api.Context
 
         public DbSet<DoarFazBem.Models.Donation> Donation { get; set; }
 
+        public DbSet<DoarFazBem.Models.Login> Login { get; set; }
+
     }
 }

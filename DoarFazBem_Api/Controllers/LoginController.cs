@@ -44,13 +44,13 @@ namespace DoarFazBem_Api.Controllers
                 throw new ArgumentNullException(nameof(usuario.senhaSalt), "O valor de senha não pode ser nulo. Verifique se o valor está sendo definido corretamente.");
             }
 
-            if (loginDto.password != null)
+            if (loginDto.password_dfb != null)
             {
-                senhaHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.password));                
+                senhaHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.password_dfb));                
             }
             else
             {
-                throw new ArgumentNullException(nameof(loginDto.password), "O valor de password não pode ser nulo. Verifique se o valor está sendo definido corretamente.");
+                throw new ArgumentNullException(nameof(loginDto.password_dfb), "O valor de password não pode ser nulo. Verifique se o valor está sendo definido corretamente.");
             }
 
             for (int i = 0; i < senhaHash.Length; i++)
