@@ -6,7 +6,7 @@ namespace DoarFazBem.Models;
 public class Usuario
 {
     [Key]
-    public int cpf { get; set; }
+    public decimal cpf { get; set; }
     public string? nome { get; set; }
     public string? email { get; set; }
     public TipoSanguineo tipo_sanguineo { get; set; }
