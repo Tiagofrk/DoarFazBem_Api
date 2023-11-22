@@ -5,7 +5,7 @@ namespace DoarFazBem.Models
     public class Login
     {
         [Key]
-        public int cpf { get; set; }
+        public decimal cpf { get; set; }
         public string? password_dfb { get; set; }
     }
 }

@@ -9,59 +9,58 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace DoarFazBem_Api.Controllers
+[Route("v1/Login")]
+[ApiController]
+public class LoginController : ControllerBase
 {
-    public class LoginController
-    {
-        private readonly AppDbContext _context;
+    private readonly AppDbContext _context;
 
-        public LoginController(AppDbContext context)
+    public LoginController(AppDbContext context)
+    {
+        _context = context;
+    }
+
+    [Route("Login"), HttpPost]
+    public async Task<ActionResult<Usuario>> Login([FromBody] Login loginDto)
+    {
+        var usuario = await _context.Usuario.SingleOrDefaultAsync(x => x.cpf == loginDto.cpf);
+
+        var hmac = new HMACSHA512();
+        byte[] senhaHash;
+
+        if (usuario == null)
         {
-            _context = context;
+            var error = "Cpf inválido";
+            throw new ArgumentException(error);
         }
 
-        [HttpPost]
-        [Route("Login")]
-        public async Task<ActionResult<Usuario>> Login(Login loginDto)
+        if (usuario.senhaSalt != null)
         {
-            var usuario = await _context.Usuario.SingleOrDefaultAsync(x => x.cpf == loginDto.cpf);
+            hmac = new HMACSHA512(usuario.senhaSalt);
+        }
+        else
+        {
+            throw new ArgumentNullException(nameof(usuario.senhaSalt), "O valor de senha não pode ser nulo. Verifique se o valor está sendo definido corretamente.");
+        }
 
-            var hmac = new HMACSHA512();
-            byte[] senhaHash;
+        if (loginDto.password_dfb != null)
+        {
+            senhaHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.password_dfb));
+        }
+        else
+        {
+            throw new ArgumentNullException(nameof(loginDto.password_dfb), "O valor de password não pode ser nulo. Verifique se o valor está sendo definido corretamente.");
+        }
 
-            if (usuario == null)
+        for (int i = 0; i < senhaHash.Length; i++)
+        {
+            if (senhaHash[i] != usuario.senhaHash?[i])
             {
-                var error = "Cpf inválido";
+                var error = "Senha inválido";
                 throw new ArgumentException(error);
             }
-
-            if (usuario.senhaSalt != null)
-            {
-                hmac = new HMACSHA512(usuario.senhaSalt);
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(usuario.senhaSalt), "O valor de senha não pode ser nulo. Verifique se o valor está sendo definido corretamente.");
-            }
-
-            if (loginDto.password_dfb != null)
-            {
-                senhaHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.password_dfb));                
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(loginDto.password_dfb), "O valor de password não pode ser nulo. Verifique se o valor está sendo definido corretamente.");
-            }
-
-            for (int i = 0; i < senhaHash.Length; i++)
-            {
-                if (senhaHash[i] != usuario.senhaHash?[i]) {
-                    var error = "Senha inválido";
-                    throw new ArgumentException(error);
-                } 
-            }
-
-            return usuario;
         }
+
+        return usuario;
     }
 }

@@ -32,12 +32,11 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowMyOrigin",
-            builder => builder.WithOrigins("http://127.0.0.1:5500/").AllowAnyHeader().AllowAnyMethod());
+            builder => builder.WithOrigins("http://127.0.0.1:5500/").AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 });
 
 var app = builder.Build();
 
-app.UseCors("AllowMyOrigin");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -47,6 +46,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowMyOrigin");
 
 app.UseAuthorization();
 
