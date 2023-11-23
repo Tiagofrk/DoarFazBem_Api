@@ -32,7 +32,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowMyOrigin",
-            builder => builder.WithOrigins("http://127.0.0.1:5500/").AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+            builder => builder.WithOrigins("http://127.0.0.1:5500/", "https://dofazbem.org/").AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 });
 
 var app = builder.Build();
