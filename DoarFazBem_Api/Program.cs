@@ -25,7 +25,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "DoarFazBem-Api", Version = "v1" });
     c.ResolveConflictingActions(x => x.First()); // Esta linha resolve o conflito de ações que estão usando a mesma rota e gerando ambiguidade.
 });
 
