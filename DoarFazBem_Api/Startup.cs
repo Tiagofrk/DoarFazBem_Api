@@ -13,6 +13,7 @@ namespace DoarFazBem_Api
             });
         }
 
+        [Obsolete]
         public void Configure(IApplicationBuilder app, Microsoft.Extensions.Hosting.IHostingEnvironment env)
         {
             // Swagger
