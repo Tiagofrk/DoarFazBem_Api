@@ -27,14 +27,23 @@ public class UsuarioController : ControllerBase
     [Route("GetUsuario"), HttpGet]
     public ActionResult<Usuario> GetUsuario(int id)
     {
-        var usuario = _context.Usuario.Find(id);
-
-        if (usuario == null)
+        try
         {
-            return NotFound();
-        }
+            var usuario = _context.Usuario.Find(id);
 
-        return usuario;
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            return usuario;
+        }
+        catch (Exception ex)
+        {
+            // Adicione logs ou retorne mensagens de erro para debug
+            Console.WriteLine($"Erro: {ex.Message}");
+            return BadRequest($"Erro: {ex.Message}");
+        }
     }
 
     // POST: api/Usuario
@@ -62,34 +71,53 @@ public class UsuarioController : ControllerBase
 
     // PUT: api/Usuario/5
     [Route("PutUsuario"), HttpGet]
-    public IActionResult PutUsuario(int id, Usuario usuario)
+    public IActionResult PutUsuario(int id, [FromBody] Usuario usuario)
     {
-        if (id != usuario.cpf)
+        try
         {
-            return BadRequest();
+            if (id != usuario.cpf)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(usuario).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            return NoContent();
+
         }
-
-        _context.Entry(usuario).State = EntityState.Modified;
-        _context.SaveChanges();
-
-        return NoContent();
+        catch (Exception ex)
+        {
+            // Adicione logs ou retorne mensagens de erro para debug
+            Console.WriteLine($"Erro: {ex.Message}");
+            return BadRequest($"Erro: {ex.Message}");
+        }
     }
 
     // DELETE: api/Usuario/5
     [Route("DeleteUsuario"), HttpDelete]
     public IActionResult DeleteUsuario(int id)
     {
-        var usuario = _context.Usuario.Find(id);
-
-        if (usuario == null)
+        try
         {
-            return NotFound();
+            var usuario = _context.Usuario.Find(id);
+
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            _context.Usuario.Remove(usuario);
+            _context.SaveChanges();
+
+            return NoContent();
         }
-
-        _context.Usuario.Remove(usuario);
-        _context.SaveChanges();
-
-        return NoContent();
+        catch (Exception ex)
+        {
+            // Adicione logs ou retorne mensagens de erro para debug
+            Console.WriteLine($"Erro: {ex.Message}");
+            return BadRequest($"Erro: {ex.Message}");
+        }
     }
 
     private void CriarSenhaHash(string? senha, out byte[] senhaHash, out byte[] senhaSalt)

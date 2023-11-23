@@ -27,40 +27,70 @@ public class DoadorController : ControllerBase
     [Route("GetDoador"), HttpGet]
     public ActionResult<Doador> GetDoador(int id)
     {
-        var Doador = _context.Doador.Find(id);
-
-        if (Doador == null)
+        try
         {
-            return NotFound();
-        }
+            var Doador = _context.Doador.Find(id);
 
-        return Doador;
+            if (Doador == null)
+            {
+                return NotFound();
+            }
+
+            return Doador;
+
+        }
+        catch (Exception ex)
+        {
+            // Adicione logs ou retorne mensagens de erro para debug
+            Console.WriteLine($"Erro: {ex.Message}");
+            return BadRequest($"Erro: {ex.Message}");
+        }
     }
 
     // POST: api/Doador
     [Route("PostDoador"), HttpPost]
-    public ActionResult<Doador> PostDoador(Doador Doador)
+    public ActionResult<Doador> PostDoador([FromBody] Doador Doador)
     {
-        _context.Doador.Add(Doador);
-        _context.SaveChanges();
+        try
+        {
+            _context.Doador.Add(Doador);
+            _context.SaveChanges();
 
-        return CreatedAtAction(nameof(GetDoador), new { id = Doador.id_doador }, Doador);
+            return CreatedAtAction(nameof(GetDoador), new { id = Doador.id_doador }, Doador);
+
+        }
+        catch (Exception ex)
+        {
+            // Adicione logs ou retorne mensagens de erro para debug
+            Console.WriteLine($"Erro: {ex.Message}");
+            return BadRequest($"Erro: {ex.Message}");
+        }
     }
 
     // PUT: api/Doador/5
     [Route("PutDoador"), HttpPut]
 
-    public IActionResult PutDoador(int id, Doador Doador)
+    public IActionResult PutDoador(int id, [FromBody] Doador Doador)
     {
-        if (id != Doador.id_doador)
+        try
         {
-            return BadRequest();
+            if (id != Doador.id_doador)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(Doador).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            return NoContent();
+
         }
-
-        _context.Entry(Doador).State = EntityState.Modified;
-        _context.SaveChanges();
-
-        return NoContent();
+        catch (Exception ex)
+        {
+            // Adicione logs ou retorne mensagens de erro para debug
+            Console.WriteLine($"Erro: {ex.Message}");
+            return BadRequest($"Erro: {ex.Message}");
+        }
     }
 
     // DELETE: api/Doador/5
@@ -68,16 +98,26 @@ public class DoadorController : ControllerBase
 
     public IActionResult DeleteDoador(int id)
     {
-        var Doador = _context.Doador.Find(id);
-
-        if (Doador == null)
+        try
         {
-            return NotFound();
+            var Doador = _context.Doador.Find(id);
+
+            if (Doador == null)
+            {
+                return NotFound();
+            }
+
+            _context.Doador.Remove(Doador);
+            _context.SaveChanges();
+
+            return NoContent();
+
         }
-
-        _context.Doador.Remove(Doador);
-        _context.SaveChanges();
-
-        return NoContent();
+        catch (Exception ex)
+        {
+            // Adicione logs ou retorne mensagens de erro para debug
+            Console.WriteLine($"Erro: {ex.Message}");
+            return BadRequest($"Erro: {ex.Message}");
+        }
     }
 }

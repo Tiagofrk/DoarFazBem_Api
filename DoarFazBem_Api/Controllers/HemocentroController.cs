@@ -27,55 +27,95 @@ public class HemocentroController : ControllerBase
     [Route("GetHemocentro"), HttpGet]
     public ActionResult<Hemocentro> GetHemocentro(int id)
     {
-        var Hemocentro = _context.Hemocentro.Find(id);
-
-        if (Hemocentro == null)
+        try
         {
-            return NotFound();
-        }
+            var Hemocentro = _context.Hemocentro.Find(id);
 
-        return Hemocentro;
+            if (Hemocentro == null)
+            {
+                return NotFound();
+            }
+
+            return Hemocentro;
+
+        }
+        catch (Exception ex)
+        {
+            // Adicione logs ou retorne mensagens de erro para debug
+            Console.WriteLine($"Erro: {ex.Message}");
+            return BadRequest($"Erro: {ex.Message}");
+        }
     }
 
     // POST: api/Hemocentro
     [Route("PostHemocentro"), HttpPost]
-    public ActionResult<Hemocentro> PostHemocentro(Hemocentro Hemocentro)
+    public ActionResult<Hemocentro> PostHemocentro([FromBody] Hemocentro Hemocentro)
     {
-        _context.Hemocentro.Add(Hemocentro);
-        _context.SaveChanges();
+        try
+        {
+            _context.Hemocentro.Add(Hemocentro);
+            _context.SaveChanges();
 
-        return CreatedAtAction(nameof(GetHemocentro), new { id = Hemocentro.id_hemocentro }, Hemocentro);
+            return CreatedAtAction(nameof(GetHemocentro), new { id = Hemocentro.id_hemocentro }, Hemocentro);
+
+        }
+        catch (Exception ex)
+        {
+            // Adicione logs ou retorne mensagens de erro para debug
+            Console.WriteLine($"Erro: {ex.Message}");
+            return BadRequest($"Erro: {ex.Message}");
+        }
     }
 
     // PUT: api/Hemocentro/5
     [Route("PutHemocentro"), HttpPut]
-    public IActionResult PutHemocentro(int id, Hemocentro Hemocentro)
+    public IActionResult PutHemocentro(int id, [FromBody] Hemocentro Hemocentro)
     {
-        if (id != Hemocentro.id_hemocentro)
+        try
         {
-            return BadRequest();
+            if (id != Hemocentro.id_hemocentro)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(Hemocentro).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            return NoContent();
+
         }
-
-        _context.Entry(Hemocentro).State = EntityState.Modified;
-        _context.SaveChanges();
-
-        return NoContent();
+        catch (Exception ex)
+        {
+            // Adicione logs ou retorne mensagens de erro para debug
+            Console.WriteLine($"Erro: {ex.Message}");
+            return BadRequest($"Erro: {ex.Message}");
+        }
     }
 
     // DELETE: api/Hemocentro/5
     [Route("DeleteHemocentro"), HttpDelete]
     public IActionResult DeleteHemocentro(int id)
     {
-        var Hemocentro = _context.Hemocentro.Find(id);
-
-        if (Hemocentro == null)
+        try
         {
-            return NotFound();
+            var Hemocentro = _context.Hemocentro.Find(id);
+
+            if (Hemocentro == null)
+            {
+                return NotFound();
+            }
+
+            _context.Hemocentro.Remove(Hemocentro);
+            _context.SaveChanges();
+
+            return NoContent();
+
         }
-
-        _context.Hemocentro.Remove(Hemocentro);
-        _context.SaveChanges();
-
-        return NoContent();
+        catch (Exception ex)
+        {
+            // Adicione logs ou retorne mensagens de erro para debug
+            Console.WriteLine($"Erro: {ex.Message}");
+            return BadRequest($"Erro: {ex.Message}");
+        }
     }
 }

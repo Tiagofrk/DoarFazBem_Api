@@ -27,55 +27,95 @@ public class DonationController : ControllerBase
     [Route("GetDonation"), HttpGet]
     public ActionResult<Donation> GetDonation(int id)
     {
-        var Donation = _context.Donation.Find(id);
-
-        if (Donation == null)
+        try
         {
-            return NotFound();
-        }
+            var Donation = _context.Donation.Find(id);
 
-        return Donation;
+            if (Donation == null)
+            {
+                return NotFound();
+            }
+
+            return Donation;
+
+        }
+        catch (Exception ex)
+        {
+            // Adicione logs ou retorne mensagens de erro para debug
+            Console.WriteLine($"Erro: {ex.Message}");
+            return BadRequest($"Erro: {ex.Message}");
+        }
     }
 
     // POST: api/Donation
     [Route("PostDonation"), HttpPost]
-    public ActionResult<Donation> PostDonation(Donation Donation)
+    public ActionResult<Donation> PostDonation([FromBody] Donation Donation)
     {
-        _context.Donation.Add(Donation);
-        _context.SaveChanges();
+        try
+        {
+            _context.Donation.Add(Donation);
+            _context.SaveChanges();
 
-        return CreatedAtAction(nameof(GetDonation), new { id = Donation.id_donation }, Donation);
+            return CreatedAtAction(nameof(GetDonation), new { id = Donation.id_donation }, Donation);
+
+        }
+        catch (Exception ex)
+        {
+            // Adicione logs ou retorne mensagens de erro para debug
+            Console.WriteLine($"Erro: {ex.Message}");
+            return BadRequest($"Erro: {ex.Message}");
+        }
     }
 
     // PUT: api/Donation/5
     [Route("PutDonation"), HttpPut]
-    public IActionResult PutDonation(int id, Donation Donation)
+    public IActionResult PutDonation(int id, [FromBody] Donation Donation)
     {
-        if (id != Donation.id_donation)
+        try
         {
-            return BadRequest();
+            if (id != Donation.id_donation)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(Donation).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            return NoContent();
+
         }
-
-        _context.Entry(Donation).State = EntityState.Modified;
-        _context.SaveChanges();
-
-        return NoContent();
+        catch (Exception ex)
+        {
+            // Adicione logs ou retorne mensagens de erro para debug
+            Console.WriteLine($"Erro: {ex.Message}");
+            return BadRequest($"Erro: {ex.Message}");
+        }
     }
 
     // DELETE: api/Donation/5
     [Route("DeleteDonation"), HttpDelete]
     public IActionResult DeleteDonation(int id)
     {
-        var Donation = _context.Donation.Find(id);
-
-        if (Donation == null)
+        try
         {
-            return NotFound();
+            var Donation = _context.Donation.Find(id);
+
+            if (Donation == null)
+            {
+                return NotFound();
+            }
+
+            _context.Donation.Remove(Donation);
+            _context.SaveChanges();
+
+            return NoContent();
+
         }
-
-        _context.Donation.Remove(Donation);
-        _context.SaveChanges();
-
-        return NoContent();
+        catch (Exception ex)
+        {
+            // Adicione logs ou retorne mensagens de erro para debug
+            Console.WriteLine($"Erro: {ex.Message}");
+            return BadRequest($"Erro: {ex.Message}");
+        }
     }
 }
