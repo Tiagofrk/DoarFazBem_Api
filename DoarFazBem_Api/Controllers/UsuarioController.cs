@@ -96,11 +96,11 @@ public class UsuarioController : ControllerBase
 
     // DELETE: api/Usuario/5
     [Route("DeleteUsuario"), HttpDelete]
-    public IActionResult DeleteUsuario(int id)
+    public IActionResult DeleteUsuario(int cpf)
     {
         try
         {
-            var usuario = _context.Usuario.Find(id);
+            var usuario = _context.Usuario.Find(cpf);
 
             if (usuario == null)
             {
