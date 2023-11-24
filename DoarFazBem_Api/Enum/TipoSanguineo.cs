@@ -2,13 +2,14 @@
 {
     public enum TipoSanguineo
     {
-        Apositivo = 1,
-        Anegativo = 2,
-        Bpositivo = 3,
-        Bnegativo = 4,
-        ABpositivo = 5,
-        ABnegativo = 6,
-        Opositivo = 7,
-        Onegativo = 8,
+        NaoSei = 1,
+        Apositivo = 2,
+        Anegativo = 3,
+        Bpositivo = 4,
+        Bnegativo = 5,
+        ABpositivo = 6,
+        ABnegativo = 7,
+        Opositivo = 8,
+        Onegativo = 9,
     }
 }
