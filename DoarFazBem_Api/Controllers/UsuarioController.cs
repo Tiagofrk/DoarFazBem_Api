@@ -96,7 +96,7 @@ public class UsuarioController : ControllerBase
 
     // DELETE: api/Usuario/5
     [Route("DeleteUsuario"), HttpDelete]
-    public IActionResult DeleteUsuario(int cpf)
+    public IActionResult DeleteUsuario(decimal cpf)
     {
         try
         {
